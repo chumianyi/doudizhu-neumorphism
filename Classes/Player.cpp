@@ -627,8 +627,6 @@ void Player::updateCards()
 		}
 	}
 }
-	}
-}
 
 void Player::clearCards()
 {
