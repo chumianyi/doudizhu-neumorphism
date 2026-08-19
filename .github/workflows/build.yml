@@ -64,7 +64,10 @@ jobs:
         python build_native.py -b release 2>&1 | tail -60
 
     - name: Create local.properties
-      run: echo "sdk.dir=$ANDROID_SDK_ROOT" > proj.android/local.properties
+      run: |
+        echo "sdk.dir=$ANDROID_SDK_ROOT" > proj.android/local.properties
+        echo "sdk.dir=$ANDROID_SDK_ROOT" > cocos2d/cocos/platform/android/java/local.properties
+        echo "sdk.dir=$ANDROID_SDK_ROOT" > cocos2d/cocos/platform/android/ControllerManualAdapter/local.properties
 
     - name: Build APK with Ant
       run: |
