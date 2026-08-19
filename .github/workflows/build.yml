@@ -31,10 +31,12 @@ jobs:
     - name: Download cocos2d-x external deps
       run: |
         cd cocos2d/external
-        wget -q https://github.com/cocos2d/cocos2d-x-3rd-party-libs-bin/archive/v3-deps-29.zip
-        unzip -q v3-deps-29.zip
-        cp -r cocos2d-x-3rd-party-libs-bin-v3-deps-29/* .
-        rm -rf cocos2d-x-3rd-party-libs-bin-v3-deps-29 v3-deps-29.zip
+        wget -q https://github.com/cocos2d/cocos2d-x-3rd-party-libs-bin/archive/v3-deps-29.zip -O deps.zip
+        unzip -q deps.zip
+        DEPS_DIR=$(ls -d cocos2d-x-3rd-party-libs-bin-*/)
+        echo "Deps dir: $DEPS_DIR"
+        cp -r "$DEPS_DIR"* .
+        rm -rf "$DEPS_DIR" deps.zip
         ls
 
     - name: Setup JDK 8 for build
