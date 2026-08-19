@@ -601,12 +601,13 @@ void Player::updateCards()
 	int count = _cardsManager->getChildren().size();
 	if (count <= 0) return;
 	
-	float screenWidth = 1920.0f;
-	float margin = 200.0f;
-	float maxWidth = screenWidth - margin * 2;
-	float cardWidth = 80.0f;
-	float baseSpacing = 45.0f;
-	float minSpacing = 18.0f;
+	// 基于1200设计宽度，动态计算牌间距
+	float designWidth = 1200.0f;
+	float margin = 100.0f;
+	float maxWidth = (designWidth - margin * 2) / SCALE_FACTOR;
+	float cardWidth = 80.0f / SCALE_FACTOR;
+	float baseSpacing = 42.0f / SCALE_FACTOR;
+	float minSpacing = 22.0f / SCALE_FACTOR;
 	
 	float totalWidth = count * cardWidth + (count - 1) * baseSpacing;
 	float spacing = baseSpacing;
@@ -616,7 +617,7 @@ void Player::updateCards()
 		if (spacing < minSpacing) spacing = minSpacing;
 	}
 	
-	float startX = screenWidth / 2 - (count - 1) * spacing / 2;
+	float startX = (designWidth / 2) / SCALE_FACTOR - (count - 1) * spacing / 2;
 	
 	for (int i=0; i<count; i++)
 	{

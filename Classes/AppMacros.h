@@ -2,9 +2,9 @@
 #define __APPMACROS_H__
 #include "cocos2d.h"
 
-#define ANDROID_MODERN
-#ifdef ANDROID_MODERN
-#define		SCALE_FACTOR	1.0f
+#define ANDROID_MI3
+#ifdef ANDROID_MI3
+#define		SCALE_FACTOR	0.625f
 #define		WINSIZE_W		1920
 #define		WINSIZE_H		1080
 #else

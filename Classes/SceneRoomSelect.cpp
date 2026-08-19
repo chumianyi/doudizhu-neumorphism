@@ -23,49 +23,43 @@ bool SceneRoomSelect::init()
     _selectedRoom = 0;
     _bonusDialog = nullptr;
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    
     // 背景
     auto bg = Sprite::create("beijing.png");
-    bg->setPosition(visibleSize.width/2, visibleSize.height/2);
-    bg->setScale(visibleSize.width / bg->getContentSize().width);
+    bg->setPosition(600, 337);
+    bg->setScale(1200.0 / bg->getContentSize().width);
     this->addChild(bg, 0);
     
     // 标题
-    auto title = Label::createWithTTF("选择场次", "fonts/FZCuYuan-M03S.ttf", 48);
-    title->setPosition(visibleSize.width/2, visibleSize.height - 80);
+    auto title = Label::createWithTTF("选择场次", "fonts/FZCuYuan-M03S.ttf", 42);
+    title->setPosition(600, 600);
     title->setColor(Color3B(52, 84, 130));
     this->addChild(title, 1);
     
     // 快乐豆显示
     auto beanBg = Sprite::create("bottomCardZone.png");
-    beanBg->setScale(0.6);
-    beanBg->setPosition(visibleSize.width/2, visibleSize.height - 160);
+    beanBg->setScale(0.5);
+    beanBg->setPosition(600, 530);
     this->addChild(beanBg, 1);
     
     auto beanIcon = Sprite::create("icon_dou.png");
-    beanIcon->setPosition(visibleSize.width/2 - 120, visibleSize.height - 160);
+    beanIcon->setPosition(510, 530);
     this->addChild(beanIcon, 2);
     
-    _beanLabel = Label::createWithTTF("0", "fonts/FZCuYuan-M03S.ttf", 36);
-    _beanLabel->setPosition(visibleSize.width/2 + 20, visibleSize.height - 160);
+    _beanLabel = Label::createWithTTF("0", "fonts/FZCuYuan-M03S.ttf", 32);
+    _beanLabel->setPosition(620, 530);
     _beanLabel->setColor(Color3B(52, 84, 130));
     this->addChild(_beanLabel, 2);
     updateBeanLabel();
     
-    // 5个场次按钮
-    struct RoomInfo {
-        const char* name;
-        int threshold;
-        float y;
+    // 5个场次按钮 - 垂直排列
+    const char* roomNames[] = {
+        "初级场  门槛50",
+        "中级场  门槛2000",
+        "高级场  门槛1万",
+        "顶级场  门槛10万",
+        "包场  门槛1亿"
     };
-    RoomInfo rooms[] = {
-        {"初级场  门槛50", 50, visibleSize.height - 280},
-        {"中级场  门槛2000", 2000, visibleSize.height - 380},
-        {"高级场  门槛1万", 10000, visibleSize.height - 480},
-        {"顶级场  门槛10万", 100000, visibleSize.height - 580},
-        {"包场  门槛1亿", 100000000, visibleSize.height - 680},
-    };
+    float roomY[] = {450, 370, 290, 210, 130};
     
     for (int i = 0; i < 5; i++)
     {
@@ -73,25 +67,24 @@ bool SceneRoomSelect::init()
             [this, i](Ref* sender) {
                 this->menuRoomCallback(sender, i);
             });
-        item->setPosition(0, rooms[i].y - visibleSize.height/2);
-        item->setScale(1.2);
+        item->setScale(0.9);
         
-        auto label = Label::createWithTTF(rooms[i].name, "fonts/FZCuYuan-M03S.ttf", 28);
+        auto label = Label::createWithTTF(roomNames[i], "fonts/FZCuYuan-M03S.ttf", 24);
         label->setPosition(item->getContentSize().width/2, item->getContentSize().height/2);
         label->setColor(Color3B(255, 255, 255));
         item->addChild(label);
         
         auto menu = Menu::create(item, NULL);
-        menu->setPosition(visibleSize.width/2, 0);
+        menu->setPosition(600, roomY[i]);
         this->addChild(menu, 2);
     }
     
     // 返回按钮
     auto backItem = customMenuItem("item_back.png", "item_back.png", 
         CC_CALLBACK_1(SceneRoomSelect::menuBackCallback, this));
-    backItem->setPosition(80, visibleSize.height - 80);
+    backItem->setScale(0.8);
     auto backMenu = Menu::create(backItem, NULL);
-    backMenu->setPosition(0, 0);
+    backMenu->setPosition(80, 600);
     this->addChild(backMenu, 2);
     
     // 检查是否破产
@@ -104,7 +97,9 @@ void SceneRoomSelect::updateBeanLabel()
 {
     int beans = HappyBeanManager::getInstance()->getBeans();
     char buf[64];
-    if (beans >= 10000)
+    if (beans >= 100000000)
+        sprintf(buf, "%d亿", beans / 100000000);
+    else if (beans >= 10000)
         sprintf(buf, "%d万", beans / 10000);
     else
         sprintf(buf, "%d", beans);
@@ -123,43 +118,36 @@ void SceneRoomSelect::checkBankrupt(float dt)
 
 void SceneRoomSelect::showBonusDialog()
 {
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    
     _bonusDialog = Layer::create();
     
-    // 遮罩
     auto mask = LayerColor::create(Color4B(0, 0, 0, 150));
     _bonusDialog->addChild(mask, 0);
     
-    // 弹窗背景
     auto dialogBg = Sprite::create("gameover/nt_result_base.png");
-    dialogBg->setScale(0.8);
-    dialogBg->setPosition(visibleSize.width/2, visibleSize.height/2);
+    dialogBg->setScale(0.7);
+    dialogBg->setPosition(600, 337);
     _bonusDialog->addChild(dialogBg, 1);
     
-    // 标题
-    auto title = Label::createWithTTF("今日补偿", "fonts/FZCuYuan-M03S.ttf", 42);
-    title->setPosition(visibleSize.width/2, visibleSize.height/2 + 80);
+    auto title = Label::createWithTTF("今日补偿", "fonts/FZCuYuan-M03S.ttf", 38);
+    title->setPosition(600, 400);
     title->setColor(Color3B(200, 100, 100));
     _bonusDialog->addChild(title, 2);
     
-    // 内容
-    auto content = Label::createWithTTF("快乐豆已用完\n赠送你200快乐豆\n明天还可以再来领取哦", "fonts/FZCuYuan-M03S.ttf", 28);
-    content->setPosition(visibleSize.width/2, visibleSize.height/2);
+    auto content = Label::createWithTTF("快乐豆已用完\n赠送你200快乐豆\n明天还可以再来领取哦", "fonts/FZCuYuan-M03S.ttf", 26);
+    content->setPosition(600, 337);
     content->setColor(Color3B(52, 84, 130));
     _bonusDialog->addChild(content, 2);
     
-    // 领取按钮
     auto claimItem = customMenuItem("item_begin.png", "item_begin.png", 
         CC_CALLBACK_1(SceneRoomSelect::menuBonusCallback, this));
-    claimItem->setPosition(visibleSize.width/2, visibleSize.height/2 - 100);
-    auto claimLabel = Label::createWithTTF("领取", "fonts/FZCuYuan-M03S.ttf", 32);
+    claimItem->setScale(0.8);
+    auto claimLabel = Label::createWithTTF("领取", "fonts/FZCuYuan-M03S.ttf", 28);
     claimLabel->setPosition(claimItem->getContentSize().width/2, claimItem->getContentSize().height/2);
     claimLabel->setColor(Color3B(255, 255, 255));
     claimItem->addChild(claimLabel);
     
     auto claimMenu = Menu::create(claimItem, NULL);
-    claimMenu->setPosition(0, 0);
+    claimMenu->setPosition(600, 250);
     _bonusDialog->addChild(claimMenu, 2);
     
     this->addChild(_bonusDialog, 100);
@@ -188,7 +176,6 @@ void SceneRoomSelect::menuRoomCallback(Ref* pSender, int roomType)
     
     if (!HappyBeanManager::getInstance()->hasEnoughBeans(threshold))
     {
-        // 快乐豆不足
         if (HappyBeanManager::getInstance()->canClaimDailyBonus())
         {
             showBonusDialog();
@@ -196,7 +183,6 @@ void SceneRoomSelect::menuRoomCallback(Ref* pSender, int roomType)
         return;
     }
     
-    // 扣除入场费（用门槛的10%作为底分）
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     Director::getInstance()->replaceScene(SceneGame::createScene());
 }

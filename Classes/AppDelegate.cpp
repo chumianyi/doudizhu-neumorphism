@@ -41,13 +41,13 @@ bool AppDelegate::applicationDidFinishLaunching()
         director->setOpenGLView(glview);
 
 		glview->setFrameSize(WINSIZE_W,WINSIZE_H);
-		glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::FIXED_HEIGHT);
+		glview->setDesignResolutionSize(1200, 675, ResolutionPolicy::NO_BORDER);
     }
 
 	director->setContentScaleFactor(SCALE_FACTOR);
 
     // 设置帧数
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
     director->setAnimationInterval(1.0 / 60);
 
 	// 加载游戏需要资源
