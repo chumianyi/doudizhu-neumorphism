@@ -28,16 +28,20 @@ jobs:
         yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses || true
         $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "platform-tools" "build-tools;28.0.3" "platforms;android-28"
 
+    - name: Install legacy SDK tools (for ant build.xml)
+      run: |
+        wget -q https://dl.google.com/android/repository/tools_r25.2.5-linux.zip -O tools.zip
+        unzip -q tools.zip -d $ANDROID_SDK_ROOT
+        ls $ANDROID_SDK_ROOT/tools/ant/build.xml
+
     - name: Download cocos2d-x external deps
       run: |
         cd cocos2d/external
         wget -q https://github.com/cocos2d/cocos2d-x-3rd-party-libs-bin/archive/v3-deps-29.zip -O deps.zip
         unzip -q deps.zip
         DEPS_DIR=$(ls -d cocos2d-x-3rd-party-libs-bin-*/)
-        echo "Deps dir: $DEPS_DIR"
         cp -r "$DEPS_DIR"* .
         rm -rf "$DEPS_DIR" deps.zip
-        ls
 
     - name: Setup JDK 8 for build
       uses: actions/setup-java@v4
@@ -66,7 +70,7 @@ jobs:
       run: |
         cd proj.android
         export ANDROID_HOME=$ANDROID_SDK_ROOT
-        ant debug 2>&1 | tail -30
+        ant debug
 
     - name: Find APK
       run: find proj.android -name "*.apk" -ls
