@@ -30,8 +30,12 @@ jobs:
 
     - name: Download cocos2d-x external deps
       run: |
-        cd cocos2d
-        echo "n" | python2 download-deps.py
+        cd cocos2d/external
+        wget -q https://github.com/cocos2d/cocos2d-x-3rd-party-libs-bin/archive/v3-deps-29.zip
+        unzip -q v3-deps-29.zip
+        cp -r cocos2d-x-3rd-party-libs-bin-v3-deps-29/* .
+        rm -rf cocos2d-x-3rd-party-libs-bin-v3-deps-29 v3-deps-29.zip
+        ls
 
     - name: Setup JDK 8 for build
       uses: actions/setup-java@v4
@@ -54,8 +58,7 @@ jobs:
         python build_native.py -b release 2>&1 | tail -60
 
     - name: Create local.properties
-      run: |
-        echo "sdk.dir=$ANDROID_SDK_ROOT" > proj.android/local.properties
+      run: echo "sdk.dir=$ANDROID_SDK_ROOT" > proj.android/local.properties
 
     - name: Build APK with Ant
       run: |
