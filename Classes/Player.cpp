@@ -26,12 +26,12 @@ bool Player::init(std::string name, int score, bool isHero)
 	_score	= score;
 	_isDiZhu= false;
 
-	// ÊÖÅÆ¹ÜÀí
+	// ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ï¿½
 	_cardsManager = Sprite::create();
 	_cardsManager->setPosition(0, -190/SCALE_FACTOR);
 	this->addChild(_cardsManager, 1);
 
-	// Íæ¼ÒÃû³Æ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	_labelName = Label::createWithTTF(_name, "fonts/FZCuYuan-M03S.ttf", 18/SCALE_FACTOR);
 	//_labelName->setColor(Color3B(74, 111, 165));
 	_labelName->setPosition(0,-70/SCALE_FACTOR);
@@ -42,20 +42,20 @@ bool Player::init(std::string name, int score, bool isHero)
 	huanledou->setPosition(100/SCALE_FACTOR-35/SCALE_FACTOR,-70/SCALE_FACTOR);
 	this->addChild(huanledou, 0);
 
-	// Íæ¼Ò·ÖÊý
+	// ï¿½ï¿½Ò·ï¿½ï¿½ï¿½
 	_labelScore = Label::createWithTTF(this->GetScoreString().c_str(), "fonts/FZCuYuan-M03S.ttf", 18/SCALE_FACTOR);
 	//_labelScore->setColor(Color3B(74, 111, 165));
 	_labelScore->setPosition(100/SCALE_FACTOR,-70/SCALE_FACTOR);
 	this->addChild(_labelScore,1);
 
-	// ÌáÊ¾ÐÅÏ¢
+	// ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢
 	_labelTipInfo = Label::createWithTTF(FileUtils::getInstance()->getValueMapFromFile("strings.xml").at("tipinfo").asString(), "fonts/FZCuYuan-M03S.ttf", 24/SCALE_FACTOR);
 	_labelTipInfo->setColor(Color3B(74, 111, 165));
 	_labelTipInfo->setPosition(550/SCALE_FACTOR,50/SCALE_FACTOR);
 	this->addChild(_labelTipInfo,1);
 	_labelTipInfo->setVisible(false);
 
-	// Íæ¼ÒÍ·Ïñ
+	// ï¿½ï¿½ï¿½Í·ï¿½ï¿½
 	auto avatorBg = Sprite::create("avator_bg1.png");
 	avatorBg->setScale(0.8);
 	this->addChild(avatorBg, 0);
@@ -65,7 +65,7 @@ bool Player::init(std::string name, int score, bool isHero)
 	auto avator = Sprite::create(str_avator_image);
 	this->addChild(avator, 0);
 
-	// Íæ¼ÒÅÆÊý
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	auto back = Sprite::createWithSpriteFrameName("b/poker_back.png");
 	back->setScale(0.3);
 	back->setPosition(100/SCALE_FACTOR,0);
@@ -75,7 +75,7 @@ bool Player::init(std::string name, int score, bool isHero)
 	_labelPokeCount->setPosition(70/SCALE_FACTOR,110/SCALE_FACTOR);
 	back->addChild(_labelPokeCount,1);
 
-	// ³öÅÆÇø
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	_exhibitionZone = PokeExhibitionZone::create();
 	if (isHero)
 		_exhibitionZone->setPosition(500/SCALE_FACTOR, 130/SCALE_FACTOR);
@@ -129,7 +129,7 @@ void Player::setDiZhu()
 {
 	_isDiZhu = true;
 
-	// Íæ¼ÒÉí·Ý
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (_isDiZhu)
 	{
 		auto lord = Sprite::create("flag_lord.png");
@@ -144,7 +144,7 @@ void Player::FaPai(SceneGame* scene, PokeInfo info)
 
 	if (_isHero)
 	{
-		//Ìí¼Ó¾«Áé
+		//ï¿½ï¿½ï¿½Ó¾ï¿½ï¿½ï¿½
 		auto card = Poke::create(info,!_isHero);
 		_cardsManager->addChild(card, 100-info._num);
 		card->SetTouchEnabled();
@@ -158,9 +158,9 @@ void Player::FaPai(SceneGame* scene, PokeInfo info)
 
 void Player::ShowTipInfo(bool isFollow, CARD_TYPE cardType, unsigned int count, unsigned int value)
 {
-	// ÖÇÄÜÌáÊ¾²¿·Ö--------------------------------------------------------------------------------
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½--------------------------------------------------------------------------------
 
-	// È¡ÏûËùÓÐÑ¡ÅÆ
+	// È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 	for (int i=0; i<_cardsManager->getChildren().size(); i++)
 	{
 		Poke* card = dynamic_cast<Poke*>(_cardsManager->getChildren().at(i));
@@ -170,19 +170,19 @@ void Player::ShowTipInfo(bool isFollow, CARD_TYPE cardType, unsigned int count, 
 		}
 	}
 
-	// ²éÑ¯
+	// ï¿½ï¿½Ñ¯
 	std::vector<int>& vec = isFollow ? FindFollowCards(cardType, count, value) : FindOutCards();
 	if (vec.empty())
 	{
-		// ÌáÊ¾ÎÞ´ó¹ýÉÏ¼ÒµÄÅÆ
+		// ï¿½ï¿½Ê¾ï¿½Þ´ï¿½ï¿½ï¿½Ï¼Òµï¿½ï¿½ï¿½
 		_labelTipInfo->setVisible(true);
 	}
 	else
 	{
-		// ÓÐ´ò¹ýÉÏ¼ÒµÄÅÆ
+		// ï¿½Ð´ï¿½ï¿½ï¿½Ï¼Òµï¿½ï¿½ï¿½
 		_labelTipInfo->setVisible(false);
 
-		// ´ÓÊÖÅÆÖÐÕÒ³öÒª³öµÄÅÆ²¢Ñ¡ÖÐ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Æ²ï¿½Ñ¡ï¿½ï¿½
 		for (int j=0; j<vec.size(); j++)
 		{
 			for (auto it=_cardsManager->getChildren().begin(); it!=_cardsManager->getChildren().end(); it++)
@@ -219,7 +219,7 @@ void Player::ChuPai(SceneGame* scene, bool isFollow, CARD_TYPE cardType, unsigne
 			}
 		}
 
-		// ´ÓÊÖÅÆÖÐÉ¾³ýÒª³öµÄÅÆ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		for (int j=0; j<_vecOutCards.size(); j++)
 		{
 			for (auto it=_cardsManager->getChildren().begin(); it!=_cardsManager->getChildren().end(); it++)
@@ -247,11 +247,11 @@ void Player::ChuPai(SceneGame* scene, bool isFollow, CARD_TYPE cardType, unsigne
 			{
 				PokeInfo info;
 				info._num = (PokeNum)vec[i];
-				info._tag = (PokeTag)0;	// ÒòÎª»¨É«²»Ó°ÏìÅÆÖµµÄ´óÐ¡£¬ËùÒÔÔÝÊ±¿Õ×Å£¬ÏÂÃæÕÒµ½ÅÆÔÙ¸³Öµ
+				info._tag = (PokeTag)0;	// ï¿½ï¿½Îªï¿½ï¿½É«ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½Öµï¿½Ä´ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½Ù¸ï¿½Öµ
 				_vecOutCards.push_back(info);
 			}
 
-			// ´ÓÊÖÅÆÖÐÉ¾³ýÒª³öµÄÅÆ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			for (int j=0; j<_vecOutCards.size(); j++)
 			{
 				//
@@ -259,7 +259,7 @@ void Player::ChuPai(SceneGame* scene, bool isFollow, CARD_TYPE cardType, unsigne
 				{
 					if (_vecOutCards.at(j)._num == _vecPokeInfo.at(i)._num)
 					{
-						// ¸øÅÆµÄ»¨É«¸³Öµ
+						// ï¿½ï¿½ï¿½ÆµÄ»ï¿½É«ï¿½ï¿½Öµ
 						_vecOutCards.at(j)._tag = _vecPokeInfo.at(i)._tag;
 
 						_vecPokeInfo.erase(std::find(_vecPokeInfo.begin(),_vecPokeInfo.end(),_vecOutCards.at(j)));
@@ -325,69 +325,69 @@ void Player::ChuPai(SceneGame* scene, bool isFollow, CARD_TYPE cardType, unsigne
 
 	if (_vecPokeInfo.empty())
 	{
-		// Ê¤Àû
+		// Ê¤ï¿½ï¿½
 		scene->gameover(_id);
 	}
 }
 
 void Player::PlayEffectForCards(std::vector<int>& vec)
 {
-	// ¸ù¾ÝÅÆÐÍ²¥·ÅÒôÐ§
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 	CARDS_DATA vecOutCardsData = PanDuanPaiXing(_vecOutCards);
 	switch (vecOutCardsData._type)
 	{
-	case SINGLE_CARD		://µ¥ÅÆ	
+	case SINGLE_CARD		://ï¿½ï¿½ï¿½ï¿½	
 		{
 			char str_music[255] = {0};
 			sprintf(str_music, "sound/Man/%d.ogg", vec.at(0)+1);
 			SimpleAudioEngine::getInstance()->playEffect(str_music);
 		}
 		break;
-	case DOUBLE_CARD		://¶Ô×Ó
+	case DOUBLE_CARD		://ï¿½ï¿½ï¿½ï¿½
 		{
 			char str_music[255] = {0};
 			sprintf(str_music, "sound/Man/dui%d.ogg", vec.at(0)+1);
 			SimpleAudioEngine::getInstance()->playEffect(str_music);
 		}
 		break;
-	case THREE_CARD			://3²»´ø
+	case THREE_CARD			://3ï¿½ï¿½ï¿½ï¿½
 		{
 			char str_music[255] = {0};
 			sprintf(str_music, "sound/Man/tuple%d.ogg", vec.at(0)+1);
 			SimpleAudioEngine::getInstance()->playEffect(str_music);
 		}
 		break;
-	case BOMB_CARD			://Õ¨µ¯
+	case BOMB_CARD			://Õ¨ï¿½ï¿½
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/zhadan.ogg");
 		break;
-	case MISSILE_CARD		://»ð¼ý
+	case MISSILE_CARD		://ï¿½ï¿½ï¿½
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/wangzha.ogg");
 		break;
-	case THREE_ONE_CARD		://3´ø1
+	case THREE_ONE_CARD		://3ï¿½ï¿½1
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/sandaiyi.ogg");
 		break;
-	case THREE_TWO_CARD		://3´ø2
+	case THREE_TWO_CARD		://3ï¿½ï¿½2
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/sandaiyidui.ogg");
 		break;
-	case BOMB_TWO_CARD		://ËÄ¸ö´ø2ÕÅµ¥ÅÆ
+	case BOMB_TWO_CARD		://ï¿½Ä¸ï¿½ï¿½ï¿½2ï¿½Åµï¿½ï¿½ï¿½
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/sidaier.ogg");
 		break;
-	case BOMB_TWOOO_CARD	://ËÄ¸ö´ø2¶Ô
+	case BOMB_TWOOO_CARD	://ï¿½Ä¸ï¿½ï¿½ï¿½2ï¿½ï¿½
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/sidailiangdui.ogg");
 		break;
-	case CONNECT_CARD		://Á¬ÅÆ
+	case CONNECT_CARD		://ï¿½ï¿½ï¿½ï¿½
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/shunzi.ogg");
 		break;
-	case COMPANY_CARD		://Á¬¶Ó
+	case COMPANY_CARD		://ï¿½ï¿½ï¿½ï¿½
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/liandui.ogg");
 		break;
-	case AIRCRAFT_CARD		://·É»ú²»´ø
+	case AIRCRAFT_CARD		://ï¿½É»ï¿½ï¿½ï¿½ï¿½ï¿½
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/feiji.ogg");
 		break;
-	case AIRCRAFT_SINGLE_CARD://·É»ú´øµ¥ÅÆ
+	case AIRCRAFT_SINGLE_CARD://ï¿½É»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/feiji.ogg");
 		break;
-	case AIRCRAFT_DOUBLE_CARD://·É»ú´ø¶Ô×Ó
+	case AIRCRAFT_DOUBLE_CARD://ï¿½É»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		SimpleAudioEngine::getInstance()->playEffect("sound/Man/feiji.ogg");
 		break;
 	default:
@@ -402,7 +402,7 @@ std::vector<int>& Player::FindOutCards()
 {
 	_vecFindFollowCards.clear();
 
-	// ²»Í¬ÅÆ×éÓÅÏÈ¼¶: Ë«Ë³ > µ¥Ë³ > Èý´ø > ¶Ô×Ó > µ¥ÅÆ > Õ¨µ¯ > »ð¼ý
+	// ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½: Ë«Ë³ > ï¿½ï¿½Ë³ > ï¿½ï¿½ï¿½ï¿½ > ï¿½ï¿½ï¿½ï¿½ > ï¿½ï¿½ï¿½ï¿½ > Õ¨ï¿½ï¿½ > ï¿½ï¿½ï¿½
 
 	//Ë«Ë³
 	int index_company_card = -1;
@@ -420,7 +420,7 @@ std::vector<int>& Player::FindOutCards()
 		return _allCardGroups[index_company_card]._cards;
 	}
 
-	//µ¥Ë³
+	//ï¿½ï¿½Ë³
 	int index_connect_card = -1;
 	int count_connect_card = 0;
 	for (int i=0; i<_allCardGroups.size(); i++)
@@ -436,7 +436,7 @@ std::vector<int>& Player::FindOutCards()
 		return _allCardGroups[index_connect_card]._cards;
 	}
 
-	//Èý²»´ø/Èý´øÒ»/Èý´øÒ»¶Ô
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ò»/ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 	for (int i=0; i<_allCardGroups.size(); i++)
 	{
 		if (_allCardGroups[i]._type == THREE_CARD)		
@@ -457,7 +457,7 @@ std::vector<int>& Player::FindOutCards()
 		}
 	}
 
-	//¶Ô×Ó
+	//ï¿½ï¿½ï¿½ï¿½
 	for (int i=0; i<_allCardGroups.size(); i++)
 	{
 		if (_allCardGroups[i]._type == DOUBLE_CARD)		
@@ -466,7 +466,7 @@ std::vector<int>& Player::FindOutCards()
 		}
 	}
 
-	//µ¥ÅÆ
+	//ï¿½ï¿½ï¿½ï¿½
 	for (int i=0; i<_allCardGroups.size(); i++)
 	{
 		if (_allCardGroups[i]._type == SINGLE_CARD)		
@@ -475,7 +475,7 @@ std::vector<int>& Player::FindOutCards()
 		}
 	}
 
-	//Õ¨µ¯
+	//Õ¨ï¿½ï¿½
 	for (int i=0; i<_allCardGroups.size(); i++)
 	{
 		if (_allCardGroups[i]._type == BOMB_CARD)		
@@ -484,7 +484,7 @@ std::vector<int>& Player::FindOutCards()
 		}
 	}
 
-	//»ð¼ý
+	//ï¿½ï¿½ï¿½
 	for (int i=0; i<_allCardGroups.size(); i++)
 	{
 		if (_allCardGroups[i]._type == MISSILE_CARD)		
@@ -503,11 +503,11 @@ std::vector<int>& Player::FindFollowCards(CARD_TYPE cardType, unsigned int count
 
 	for (int i=0; i<_allCardGroups.size(); i++)
 	{
-		// ÏÈÅÐ¶ÏÅÆÖµ£¬Èç¹ûÅÆÖµÐ¡Ö±½ÓÏÂÒ»ÂÖ
+		// ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÐ¡Ö±ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		if (_allCardGroups[i]._value <= value)
 			continue;
 
-		// µ¥ÕÅ/¶Ô×Ó/Èý²»´ø/Õ¨µ¯/µ¥Ë³/Ë«Ë³/·É»ú/»ð¼ý
+		// ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/Õ¨ï¿½ï¿½/ï¿½ï¿½Ë³/Ë«Ë³/ï¿½É»ï¿½/ï¿½ï¿½ï¿½
 		if (cardType == _allCardGroups[i]._type)
 		{
 			if (cardType == CONNECT_CARD || cardType == COMPANY_CARD || cardType == AIRCRAFT_CARD)
@@ -522,10 +522,10 @@ std::vector<int>& Player::FindFollowCards(CARD_TYPE cardType, unsigned int count
 				return _allCardGroups[i]._cards;
 			}
 		}
-		// Èý´øÒ»/Èý´øÒ»¶Ô
+		// ï¿½ï¿½ï¿½ï¿½Ò»/ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		else
 		{
-			// Èç¹ûÉÏ¼Ò³öÅÆÎª3´øÒ»
+			// ï¿½ï¿½ï¿½ï¿½Ï¼Ò³ï¿½ï¿½ï¿½Îª3ï¿½ï¿½Ò»
 			if (cardType == THREE_ONE_CARD)
 			{
 				if (_allCardGroups[i]._type == THREE_CARD)
@@ -543,7 +543,7 @@ std::vector<int>& Player::FindFollowCards(CARD_TYPE cardType, unsigned int count
 					}
 				}
 			}
-			// Èç¹ûÉÏ¼Ò³öÅÆÎª3´øÒ»¶Ô
+			// ï¿½ï¿½ï¿½ï¿½Ï¼Ò³ï¿½ï¿½ï¿½Îª3ï¿½ï¿½Ò»ï¿½ï¿½
 			else if (cardType == THREE_TWO_CARD)
 			{
 				if (_allCardGroups[i]._type == THREE_CARD)
@@ -565,10 +565,10 @@ std::vector<int>& Player::FindFollowCards(CARD_TYPE cardType, unsigned int count
 		}
 	}
 
-	// Ã»ÕÒµ½¶ÔÓ¦µÄÅÆÐÍ²¢ÇÒÅÆÖµ´óÓÚÉÏ¼ÒµÄ£¬Ê¹ÓÃÕ¨µ¯
+	// Ã»ï¿½Òµï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ÒµÄ£ï¿½Ê¹ï¿½ï¿½Õ¨ï¿½ï¿½
 	for (int i=0; i<_allCardGroups.size(); i++)
 	{
-		// ÏÈÅÐ¶ÏÅÆÖµ£¬Èç¹ûÅÆÖµÐ¡Ö±½ÓÏÂÒ»ÂÖ
+		// ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÐ¡Ö±ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		if (_allCardGroups[i]._value <= value)
 			continue;
 
@@ -576,7 +576,7 @@ std::vector<int>& Player::FindFollowCards(CARD_TYPE cardType, unsigned int count
 			return _allCardGroups[i]._cards;
 	}
 
-	// Ã»ÕÒµ½¶ÔÓ¦µÄÅÆÐÍ²¢ÇÒÅÆÖµ´óÓÚÉÏ¼ÒµÄ£¬Ê¹ÓÃ»ð¼ý£¨ÍõÕ¨£©
+	// Ã»ï¿½Òµï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ÒµÄ£ï¿½Ê¹ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¨ï¿½ï¿½
 	for (int i=0; i<_allCardGroups.size(); i++)
 	{
 		if (MISSILE_CARD == _allCardGroups[i]._type)
@@ -595,20 +595,38 @@ std::vector<PokeInfo>& Player::GetOutCards()
 void Player::updateCards()
 {
 	this->ChaiPai();
-
 	std::stringstream text;
 	text << _vecPokeInfo.size();
 	_labelPokeCount->setString(text.str());
-
 	int count = _cardsManager->getChildren().size();
-	int zeroPoint = count/2;
+	if (count <= 0) return;
+	
+	float screenWidth = 1920.0f;
+	float margin = 200.0f;
+	float maxWidth = screenWidth - margin * 2;
+	float cardWidth = 80.0f;
+	float baseSpacing = 45.0f;
+	float minSpacing = 18.0f;
+	
+	float totalWidth = count * cardWidth + (count - 1) * baseSpacing;
+	float spacing = baseSpacing;
+	if (totalWidth > maxWidth)
+	{
+		spacing = (maxWidth - count * cardWidth) / (count - 1);
+		if (spacing < minSpacing) spacing = minSpacing;
+	}
+	
+	float startX = screenWidth / 2 - (count - 1) * spacing / 2;
+	
 	for (int i=0; i<count; i++)
 	{
 		Poke* card = dynamic_cast<Poke*>(_cardsManager->getChildren().at(i));
 		if (card != NULL)
 		{
-			card->setPosition(550/SCALE_FACTOR+(i-zeroPoint)*50/SCALE_FACTOR, card->getPosition().y);
+			card->setPosition(startX + i * spacing, card->getPosition().y);
 		}
+	}
+}
 	}
 }
 
@@ -619,7 +637,7 @@ void Player::clearCards()
 
 void Player::BuChu()
 {
-	// ÌáÊ¾ÎÞ´ó¹ýÉÏ¼ÒµÄÅÆ
+	// ï¿½ï¿½Ê¾ï¿½Þ´ï¿½ï¿½ï¿½Ï¼Òµï¿½ï¿½ï¿½
 	_labelTipInfo->setVisible(false);
 
 	clearCards();
@@ -637,16 +655,16 @@ void Player::BuChu()
 
 void Player::ChaiPai()
 {
-	// ÅÆÖµ
+	// ï¿½ï¿½Öµ
 
-	//			×îÐ¡ÅÆ»ù´¡Öµ	Ã¿´óÒ»µã¼ÓÒ»
-	// µ¥ÕÅ		0	+	1
-	// ¶Ô×Ó		20	+	1
-	// Èý´ø		40	+	1
-	// µ¥Ë³		60	+	1
+	//			ï¿½ï¿½Ð¡ï¿½Æ»ï¿½ï¿½ï¿½Öµ	Ã¿ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ò»
+	// ï¿½ï¿½ï¿½ï¿½		0	+	1
+	// ï¿½ï¿½ï¿½ï¿½		20	+	1
+	// ï¿½ï¿½ï¿½ï¿½		40	+	1
+	// ï¿½ï¿½Ë³		60	+	1
 	// Ë«Ë³		80	+	1
-	// Õ¨µ¯		100	+	1
-	// »ð¼ý		120
+	// Õ¨ï¿½ï¿½		100	+	1
+	// ï¿½ï¿½ï¿½		120
 
 
 	_allCardGroups.clear();
@@ -659,48 +677,48 @@ void Player::ChaiPai()
 
 	std::sort(vec_poke.begin(), vec_poke.end());
 
-	// ²ðÅÆËã·¨
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨
 
-	// 4¸ö¸¨ÖúÊý×é
+	// 4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	std::vector<int> card_i;
 	std::vector<int> card_ii;
 	std::vector<int> card_iii;
 	std::vector<int> card_iiii;
 
-	// 1.½«ËùÓÐÊÖÅÆ·Öµ½ËÄ¸ö¸¨ÖúÊý×é
+	// 1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Öµï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for (int i=0; i<vec_poke.size(); i++)
 	{
-		// µÚÒ»¸öÊý×é
+		// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		auto itor_find_i = std::find(card_i.begin(), card_i.end(), vec_poke[i]);
-		// ÕÒµ½ÁË
+		// ï¿½Òµï¿½ï¿½ï¿½
 		if (itor_find_i != card_i.end())
 		{
-			// µÚ¶þ¸öÊý×é
+			// ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			auto itor_find_ii = std::find(card_ii.begin(), card_ii.end(), vec_poke[i]);
-			// ÕÒµ½ÁË
+			// ï¿½Òµï¿½ï¿½ï¿½
 			if (itor_find_ii != card_ii.end())
 			{
-				// µÚÈý¸öÊý×é
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				auto itor_find_iii = std::find(card_iii.begin(), card_iii.end(), vec_poke[i]);
-				// ÕÒµ½ÁË
+				// ï¿½Òµï¿½ï¿½ï¿½
 				if (itor_find_iii != card_iii.end())
 				{
-					// µÚËÄ¸öÊý×é
+					// ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½
 					card_iiii.push_back(vec_poke[i]);
 				}
-				// Ã»ÕÒµ½
+				// Ã»ï¿½Òµï¿½
 				else
 				{
 					card_iii.push_back(vec_poke[i]);
 				}
 			}
-			// Ã»ÕÒµ½
+			// Ã»ï¿½Òµï¿½
 			else
 			{
 				card_ii.push_back(vec_poke[i]);
 			}
 		}
-		// Ã»ÕÒµ½
+		// Ã»ï¿½Òµï¿½
 		else
 		{
 			card_i.push_back(vec_poke[i]);
@@ -713,9 +731,9 @@ void Player::ChaiPai()
 	std::sort(card_iii.begin(), card_iii.end());
 	std::sort(card_iiii.begin(), card_iiii.end());
 
-	// 2.´ÓËÄ¸ö¸¨ÖúÊý×éÖÐÅÐ¶ÏÅÆÐÍ
+	// 2.ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	// »ð¼ý
+	// ï¿½ï¿½ï¿½
 	auto itor_xw = std::find(card_i.begin(), card_i.end(), NUM_XW);
 	auto itor_dw = std::find(card_i.begin(), card_i.end(), NUM_DW);
 	if (itor_xw != card_i.end() && itor_dw != card_i.end())
@@ -729,7 +747,7 @@ void Player::ChaiPai()
 		_allCardGroups.push_back(temp);
 	}
 
-	// µÚËÄ¸öÊý×éÖÐ¶¼ÊÇÕ¨µ¯
+	// ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Õ¨ï¿½ï¿½
 	for (int i=0; i<card_iiii.size(); i++)
 	{
 		CARDS_DATA temp;
@@ -743,7 +761,7 @@ void Player::ChaiPai()
 		_allCardGroups.push_back(temp);
 	}
 
-	// µÚÈý¸öÊý×éÖÐ¶¼ÊÇÈýÕÅÏàÍ¬µÄ£¬Èý²»´ø£¬Èý´øÒ»£¬Èý´ø¶Ô
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for (int i=0; i<card_iii.size(); i++)
 	{
 		CARDS_DATA temp;
@@ -756,7 +774,7 @@ void Player::ChaiPai()
 		_allCardGroups.push_back(temp);
 	}
 
-	// ¶Ô×Ó
+	// ï¿½ï¿½ï¿½ï¿½
 	for (int i=0; i<card_ii.size(); i++)
 	{
 		CARDS_DATA temp;
@@ -768,15 +786,15 @@ void Player::ChaiPai()
 		_allCardGroups.push_back(temp);
 	}
 	
-	// ÕÒµ¥ÅÆ(ÔÚµÚÒ»¸öÊý×é£¬¶ø²»ÔÚµÚ¶þ¸öÊý×é£¬²¢²»ÄÜ×é³Éµ¥Ë³)
+	// ï¿½Òµï¿½ï¿½ï¿½(ï¿½Úµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÚ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½Ë³)
 
-	// µ¥Ë³
+	// ï¿½ï¿½Ë³
 	for (int i=0; i<card_i.size(); i++)
 	{
 		bool is_in_link = false;
 		for (int j=4; j<card_i.size(); j++)
 		{
-			if (i+j<card_i.size() && card_i[i+j]-card_i[i]==j && card_i[i+j] <= NUM_A/*µ¥Ë³²»ÄÜ´ò¹ýA*/)
+			if (i+j<card_i.size() && card_i[i+j]-card_i[i]==j && card_i[i+j] <= NUM_A/*ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Ü´ï¿½ï¿½A*/)
 			{
 				CARDS_DATA temp;
 				temp._type = CONNECT_CARD;
@@ -791,11 +809,11 @@ void Player::ChaiPai()
 			}
 		}
 
-// 		// Èç¹û´ËÅÆ²»ÊÇ¶Ô×Ó
+// 		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½
 // 		auto itor = std::find(card_ii.begin(), card_ii.end(), card_i[i]);
 // 		if (itor == card_ii.end())
 // 		{
-// 			// µ¥ÕÅ
+// 			// ï¿½ï¿½ï¿½ï¿½
 // 			if (!is_in_link)
 // 			{
 // 				CARDS_DATA temp;
@@ -820,7 +838,7 @@ void Player::ChaiPai()
 	{
 		for (int j=2; j<card_ii.size(); j++)
 		{
-			if (i+j<card_ii.size() && card_ii[i+j]-card_ii[i]==j && card_ii[i+j] <= NUM_A/*µ¥Ë³²»ÄÜ´ò¹ýA*/)
+			if (i+j<card_ii.size() && card_ii[i+j]-card_ii[i]==j && card_ii[i+j] <= NUM_A/*ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Ü´ï¿½ï¿½A*/)
 			{
 				CARDS_DATA temp;
 				temp._type = COMPANY_CARD;

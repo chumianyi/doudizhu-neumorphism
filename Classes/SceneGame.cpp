@@ -1,14 +1,15 @@
 #include "SceneGame.h"
+#include "HappyBeanManager.h"
 #include "Player.h"
 #include "SceneMenu.h"
-#include "SimpleAudioEngine.h"   //°üº¬ÉùÒôÒýÇæÍ·ÎÄ¼þ  
+#include "SimpleAudioEngine.h"   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½  
 #include "AppMacros.h"
 
 USING_NS_CC;  
-using namespace CocosDenshion;//Ê¹ÓÃ¸ÃÉùÒôÒýÇæµÄÃüÃû¿Õ¼ä
+using namespace CocosDenshion;//Ê¹ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½
 
 //////////////////////////////////////////////////////////////////////////
-// ÔËÐÐÊ±Íæ¼ÒÐÅÏ¢´æ´¢
+// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½æ´¢
 
 struct PlayerInfo
 {
@@ -47,13 +48,13 @@ Scene* SceneGame::createScene()
 
 bool SceneGame::init()
 {
-    // ³õÊ¼»¯»ùÀà----------------------------------------
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½----------------------------------------
     if ( !Layer::init() )
     {
         return false;
     }
     
-	// ²¥·Å±³¾°ÒôÀÖ
+	// ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	SimpleAudioEngine::getInstance()->playBackgroundMusic("sound/MusicEx_Normal.ogg", true);
 
 	//
@@ -61,7 +62,7 @@ bool SceneGame::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	// ±³¾°----------------------------------------------
+	// ï¿½ï¿½ï¿½ï¿½----------------------------------------------
 	auto bg = Sprite::create("bg_table.jpg");
 	bg->setScale(1/0.8);
 	bg->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -71,7 +72,7 @@ bool SceneGame::init()
 	flag->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y + 100/SCALE_FACTOR));
 	this->addChild(flag, 0);
 
-	// ·µ»Ø²Ëµ¥
+	// ï¿½ï¿½ï¿½Ø²Ëµï¿½
 
 	auto itemBack = customMenuItem("item_back.png", "item_back.png", CC_CALLBACK_1(SceneGame::menuBackCallback, this));
 	itemBack->setPosition(visibleSize.width/2+200/SCALE_FACTOR, visibleSize.height-50/SCALE_FACTOR);
@@ -80,13 +81,13 @@ bool SceneGame::init()
 	_menuBack->setPosition(origin);
 	this->addChild(_menuBack, 1);
 	
-	// ×¼±¸²Ëµ¥
+	// ×¼ï¿½ï¿½ï¿½Ëµï¿½
 
 	auto itemReady = customMenuItem("item_zhunbei.png", "item_zhunbei.png", CC_CALLBACK_1(SceneGame::menuReadyCallback, this));
 	_menuReady = Menu::create(itemReady, NULL);
 	this->addChild(_menuReady, 1);
 
-	// ÇÀµØÖ÷²Ëµ¥
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½
 
 	auto itemQiang = customMenuItem("item_qiangdizhu.png", "item_qiangdizhu.png", CC_CALLBACK_1(SceneGame::menuQiangCallback, this));
 	itemQiang->setPosition(-80/SCALE_FACTOR, -50/SCALE_FACTOR);
@@ -97,7 +98,7 @@ bool SceneGame::init()
 	this->addChild(_menuQiangDiZhu, 1);
 	_menuQiangDiZhu->setVisible(false);
 
-    // ³öÅÆ²Ëµ¥
+    // ï¿½ï¿½ï¿½Æ²Ëµï¿½
 
 	auto itemBuChu = customMenuItem("item_buchu.png", "item_buchu_d.png", CC_CALLBACK_1(SceneGame::menuBuChuCallback, this));
 	itemBuChu->setPosition(100/SCALE_FACTOR-50/SCALE_FACTOR, -50/SCALE_FACTOR);
@@ -113,11 +114,11 @@ bool SceneGame::init()
 	this->addChild(_menuChuPai, 1);
 	_menuChuPai->setVisible(false);
 
-	// Íæ¼ÒÐÅÏ¢¶ÁÈ¡
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½È¡
 	srand(time(0));
 
 	auto name_list = FileUtils::getInstance()->getValueMapFromFile("strings.xml").at("name_list").asValueVector();
-	// Èç¹ûÊ×´Î½øÈë´Ë´¦£¬´´½¨ÈËÎïÐÅÏ¢
+	// ï¿½ï¿½ï¿½ï¿½×´Î½ï¿½ï¿½ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	if (!s_runtimeData._isReady)
 	{
 		int name_index_1 = rand()%name_list.size();
@@ -144,7 +145,7 @@ bool SceneGame::init()
 		s_runtimeData._isReady = true;
 	}
 
-	// Íæ¼Ò
+	// ï¿½ï¿½ï¿½
 
 	_player1 = Player::create(s_runtimeData._playerinfo1._name, s_runtimeData._playerinfo1._score, true);
 	_player1->setPosition(70/SCALE_FACTOR, 300/SCALE_FACTOR);
@@ -161,12 +162,12 @@ bool SceneGame::init()
 	_player3->SetPlayerID(3);
 	this->addChild(_player3);
 
-	// µ×ÅÆÇø
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	_bottomCardZone = BottomCardZone::create();
 	_bottomCardZone->setPosition(600/SCALE_FACTOR, 610/SCALE_FACTOR);
 	this->addChild(_bottomCardZone, 1);
 
-	// ³õÊ¼»¯ÅÆ¶Ñ
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Æ¶ï¿½
 	initCards();
     
 	_arrPlayerOut = CCArray::create();
@@ -202,23 +203,23 @@ void SceneGame::initCards()
 	_pokeInfo.push_back(info);
 }
 
-static int index_fapai = 0; //·¢ÅÆÊ±µÄË÷Òý
+static int index_fapai = 0; //ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 void SceneGame::faPai()
 {
-	// Ï´ÅÆ
+	// Ï´ï¿½ï¿½
 	index_fapai = 0;
 
 	srand(time(0));
 	std::random_shuffle(_pokeInfo.begin(), _pokeInfo.end());
 
-	// ·¢ÅÆ
+	// ï¿½ï¿½ï¿½ï¿½
 	auto delay = DelayTime::create(0.04);
 	auto callback = CallFuncN::create(CC_CALLBACK_1(SceneGame::callbackFaPai,this));
 	auto seq = Sequence::createWithTwoActions(delay, callback);
 	this->runAction(seq);
 
-	// ×Ô¶¯ÅÐ¶ÏÅÆÐÍ
+	// ï¿½Ô¶ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½
 	schedule(schedule_selector(SceneGame::OutCard),0.1);
 }
 
@@ -228,15 +229,15 @@ void SceneGame::callbackFaPai(cocos2d::Node* node)
 	{
 		if (index_fapai%3==0)
 		{
-			// ½ÇÉ«1
+			// ï¿½ï¿½É«1
 			_player1->FaPai(this, _pokeInfo.at(index_fapai));
 		} else if (index_fapai%3==1)
 		{
-			// ½ÇÉ«2
+			// ï¿½ï¿½É«2
 			_player2->FaPai(this, _pokeInfo.at(index_fapai));
 		} else if (index_fapai%3==2)
 		{
-			// ½ÇÉ«3
+			// ï¿½ï¿½É«3
 			_player3->FaPai(this, _pokeInfo.at(index_fapai));
 		}
 
@@ -260,7 +261,7 @@ void SceneGame::FaDiPai(Player* player)
 {
 	for (int i=index_fapai; i<54; i++)
 	{
-		//µ×ÅÆ
+		//ï¿½ï¿½ï¿½ï¿½
 		_bottomCardZone->Show(_pokeInfo.at(i));
 		_vecDiPai.push_back(_pokeInfo.at(i));
 	}
@@ -295,10 +296,10 @@ void SceneGame::menuQiangCallback(Ref* pSender)
 {
 	SimpleAudioEngine::getInstance()->playEffect("sound/Man/Order.ogg");
 
-	// ·Ö·¢µ×ÅÆ
+	// ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
 	FaDiPai(_player1);
 
-	// ÇÐ»»²Ëµ¥¿É¼û
+	// ï¿½Ð»ï¿½ï¿½Ëµï¿½ï¿½É¼ï¿½
 	_menuQiangDiZhu->setVisible(false);
 	_menuChuPai->setVisible(true);
 }
@@ -307,7 +308,7 @@ void SceneGame::menuBuQiangCallback(Ref* pSender)
 {
 	SimpleAudioEngine::getInstance()->playEffect("sound/Man/NoOrder.ogg");
 
-	// ÇÐ»»²Ëµ¥¿É¼û
+	// ï¿½Ð»ï¿½ï¿½Ëµï¿½ï¿½É¼ï¿½
 	_menuQiangDiZhu->setVisible(false);
 	//_menuChuPai->setVisible(true);
 
@@ -319,9 +320,9 @@ void SceneGame::menuBuQiangCallback(Ref* pSender)
 
 void SceneGame::callbackQiangDiZhu2(cocos2d::Node* node)
 {
-	// ·Ö·¢µ×ÅÆ
+	// ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	// Èç¹ûÍæ¼Ò²»ÇÀµØÖ÷£¬ÔòÓÉÏÂ¼ÒËæ»ú
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
 	if (_player2->IsQiangDiZhu())
 	{
 		FaDiPai(_player2);
@@ -388,7 +389,7 @@ void SceneGame::menuTiShiCallback(cocos2d::Ref* pSender)
 		}
 		else
 		{
-			// ÌáÊ¾²¿·ÖÎ´ÍêÉÆ
+			// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½
 			_player1->ShowTipInfo(true, player2_card_data._type, player2_card_data._cards.size(), player2_card_data._value);
 		}
 	}
@@ -419,7 +420,7 @@ void SceneGame::menuChuPaiCallback(Ref* pSender)
 		_begin = true;
 	}
 
-	// ³öÅÆÖ®Ç°£¬ÅÐ¶ÏÉÏ¼ÒµÄÅÆÐÍ
+	// ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ï¼Òµï¿½ï¿½ï¿½ï¿½ï¿½
 	auto player3_outcards = _player3->GetOutCards();
 	CARDS_DATA player3_card_data = PanDuanPaiXing(player3_outcards);
 
@@ -429,19 +430,19 @@ void SceneGame::menuChuPaiCallback(Ref* pSender)
 		CARDS_DATA player2_card_data = PanDuanPaiXing(player2_outcards);
 		if (player2_outcards.empty())
 		{
-			_player1->ChuPai(this, false, ERROR_CARD, 0, 1);// ³öÅÆ
+			_player1->ChuPai(this, false, ERROR_CARD, 0, 1);// ï¿½ï¿½ï¿½ï¿½
 		}
 		else
 		{
-			_player1->ChuPai(this, true, player2_card_data._type, player2_outcards.size(), player2_card_data._value);// ¸úÅÆ
+			_player1->ChuPai(this, true, player2_card_data._type, player2_outcards.size(), player2_card_data._value);// ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	else
 	{
-		_player1->ChuPai(this, true, player3_card_data._type, player3_outcards.size(), player3_card_data._value);// ¸úÅÆ
+		_player1->ChuPai(this, true, player3_card_data._type, player3_outcards.size(), player3_card_data._value);// ï¿½ï¿½ï¿½ï¿½
 	}
 
-	// Çå¿ÕÅÆÐÍÅÐ¶ÏÇø
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½
 	_arrPlayerOut->removeAllObjects();
 
 	if (!_gameover)
@@ -457,7 +458,7 @@ void SceneGame::menuChuPaiCallback(Ref* pSender)
 
 void SceneGame::callbackChuPai2(cocos2d::Node* node)
 {
-	// ³öÅÆÖ®Ç°£¬ÅÐ¶ÏÉÏ¼ÒµÄÅÆÐÍ
+	// ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ï¼Òµï¿½ï¿½ï¿½ï¿½ï¿½
 	auto player1_outcards = _player1->GetOutCards();
 	CARDS_DATA player1_card_data = PanDuanPaiXing(player1_outcards);
 
@@ -467,16 +468,16 @@ void SceneGame::callbackChuPai2(cocos2d::Node* node)
 		CARDS_DATA player3_card_data = PanDuanPaiXing(player3_outcards);
 		if (player3_outcards.empty())
 		{
-			_player2->ChuPai(this, false, ERROR_CARD, 0, 1);// ³öÅÆ
+			_player2->ChuPai(this, false, ERROR_CARD, 0, 1);// ï¿½ï¿½ï¿½ï¿½
 		}
 		else
 		{
-			_player2->ChuPai(this, true, player3_card_data._type, player3_outcards.size(), player3_card_data._value);// ¸úÅÆ
+			_player2->ChuPai(this, true, player3_card_data._type, player3_outcards.size(), player3_card_data._value);// ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	else
 	{
-		_player2->ChuPai(this, true, player1_card_data._type, player1_outcards.size(), player1_card_data._value);// ¸úÅÆ
+		_player2->ChuPai(this, true, player1_card_data._type, player1_outcards.size(), player1_card_data._value);// ï¿½ï¿½ï¿½ï¿½
 	}
 
 	if (!_gameover)
@@ -490,7 +491,7 @@ void SceneGame::callbackChuPai2(cocos2d::Node* node)
 
 void SceneGame::callbackChuPai3(cocos2d::Node* node)
 {
-	// ³öÅÆÖ®Ç°£¬ÅÐ¶ÏÉÏ¼ÒµÄÅÆÐÍ
+	// ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ï¼Òµï¿½ï¿½ï¿½ï¿½ï¿½
 	auto player2_outcards = _player2->GetOutCards();
 	CARDS_DATA player2_card_data = PanDuanPaiXing(player2_outcards);
 
@@ -500,16 +501,16 @@ void SceneGame::callbackChuPai3(cocos2d::Node* node)
 		CARDS_DATA player1_card_data = PanDuanPaiXing(player1_outcards);
 		if (player1_outcards.empty())
 		{
-			_player3->ChuPai(this, false, ERROR_CARD, 0, 1);// ³öÅÆ
+			_player3->ChuPai(this, false, ERROR_CARD, 0, 1);// ï¿½ï¿½ï¿½ï¿½
 		}
 		else
 		{
-			_player3->ChuPai(this, true, player1_card_data._type, player1_outcards.size(), player1_card_data._value);// ¸úÅÆ
+			_player3->ChuPai(this, true, player1_card_data._type, player1_outcards.size(), player1_card_data._value);// ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	else
 	{
-		_player3->ChuPai(this, true, player2_card_data._type, player2_outcards.size(), player2_card_data._value);// ¸úÅÆ
+		_player3->ChuPai(this, true, player2_card_data._type, player2_outcards.size(), player2_card_data._value);// ï¿½ï¿½ï¿½ï¿½
 	}
 
 	if (!_gameover)
@@ -525,21 +526,21 @@ void SceneGame::update(float delta)
 
 void SceneGame::setChuPaiMenuEnabled(bool isChuPai, bool isBuChu)
 {
-	((MenuItemFont *)_menuChuPai->getChildByTag(1))->setEnabled(isChuPai);//³öÅÆ
-	((MenuItemFont *)_menuChuPai->getChildByTag(0))->setEnabled(isBuChu);//²»³ö
+	((MenuItemFont *)_menuChuPai->getChildByTag(1))->setEnabled(isChuPai);//ï¿½ï¿½ï¿½ï¿½
+	((MenuItemFont *)_menuChuPai->getChildByTag(0))->setEnabled(isBuChu);//ï¿½ï¿½ï¿½ï¿½
 }
 
 void SceneGame::OutCard(float delta)
 {
 	if (_state == 1)
 	{
-		// ¿ª¾Ö
+		// ï¿½ï¿½ï¿½ï¿½
 		if (!_begin)
 		{
 			CARDS_DATA card_data = PanDuanPaiXing(_arrPlayerOut);
 			setChuPaiMenuEnabled(card_data._type != ERROR_CARD, false);
 		}
-		// ÒÑ¾­¿ª¾Ö
+		// ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
 		else
 		{
 			CARDS_DATA card_data = PanDuanPaiXing(_arrPlayerOut);
@@ -557,13 +558,13 @@ void SceneGame::OutCard(float delta)
 				}
 				else
 				{
-					// ÌáÊ¾²¿·ÖÎ´ÍêÉÆ
+					// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½
 					//_player1->ShowTipInfo(true, player2_card_data._type, player2_card_data._cards.size(), player2_card_data._value);
 
 					if (
-						// ÏàÍ¬ÅÆÐÍ
+						// ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½
 						(card_data._type == player2_card_data._type && card_data._value > player2_card_data._value) ||
-						// ²»Í¬ÅÆÐÍÓÃÕ¨µ¯»ò»ð¼ý
+						// ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						(card_data._type != player2_card_data._type && player2_card_data._type != MISSILE_CARD && 
 						(card_data._type == BOMB_CARD || card_data._type == MISSILE_CARD) && card_data._value > player2_card_data._value))
 					{
@@ -580,9 +581,9 @@ void SceneGame::OutCard(float delta)
 				//_player1->ShowTipInfo(true, player3_card_data._type, player3_card_data._cards.size(), player3_card_data._value);
 
 				if (
-					// ÏàÍ¬ÅÆÐÍ
+					// ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½
 					(card_data._type == player3_card_data._type && card_data._value > player3_card_data._value) ||
-					// ²»Í¬ÅÆÐÍÓÃÕ¨µ¯»ò»ð¼ý
+					// ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					(card_data._type != player3_card_data._type && player3_card_data._type != MISSILE_CARD && 
 					(card_data._type == BOMB_CARD || card_data._type == MISSILE_CARD) && card_data._value > player3_card_data._value))
 				{
@@ -618,7 +619,7 @@ bool isPlayerWin = false;
 
 void SceneGame::jiesuan(int winID)
 {
-	// ½áËã·ÖÊý
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	int base_score = 100;
 	player1_delta_score = 0;
@@ -695,8 +696,13 @@ void SceneGame::jiesuan(int winID)
 		}
 	}
 
-	// ´æ´¢·ÖÊý
+	// ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½
 	_player1->Score(player1_delta_score);
+	// åŒæ­¥å¿«ä¹è±†
+	if (player1_delta_score != 0)
+	{
+		HappyBeanManager::getInstance()->addBeans(player1_delta_score);
+	}
 	_player2->Score(player2_delta_score);
 	_player3->Score(player3_delta_score);
 
@@ -704,7 +710,7 @@ void SceneGame::jiesuan(int winID)
 	s_runtimeData._playerinfo2._score = _player2->GetScore();
 	s_runtimeData._playerinfo3._score = _player3->GetScore();
 
-	// ½áËã½çÃæ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	auto delay = DelayTime::create(1);
 	auto callback = CallFuncN::create(CC_CALLBACK_1(SceneGame::callbackJieSuan,this));
 	auto seq = Sequence::createWithTwoActions(delay, callback);
@@ -713,7 +719,7 @@ void SceneGame::jiesuan(int winID)
 
 void SceneGame::callbackJieSuan(cocos2d::Node* node)
 {
-	// ½ûÓÃËùÓÐ²Ëµ¥
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²Ëµï¿½
 	_menuBack->setEnabled(false);
 	_menuChuPai->setEnabled(false);
 	_menuQiangDiZhu->setEnabled(false);
@@ -726,13 +732,13 @@ void SceneGame::callbackJieSuan(cocos2d::Node* node)
 
 	SimpleAudioEngine::getInstance()->playEffect(isPlayerWin ? "sound/MusicEx_Win.ogg" : "sound/MusicEx_Lose.ogg");
 
-	// ±³¾°----------------------------------------------
+	// ï¿½ï¿½ï¿½ï¿½----------------------------------------------
 	auto bg = Sprite::create(isPlayerWin ? "gameover/ddz_diploma_win_big_bg.jpg" : "gameover/ddz_diploma_lose_big_bg.jpg");
 	bg->setScale(1.4);
 	bg->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(bg, 1000);
 
-	// ½áËãÒ³Ãæ
+	// ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½
 
 	auto jiesuanBg = Sprite::create("gameover/bg_small.png");
 	jiesuanBg->setPosition(Vec2(visibleSize.width * 2 / 3 + origin.x, visibleSize.height / 2 + origin.y));
@@ -754,16 +760,16 @@ void SceneGame::callbackJieSuan(cocos2d::Node* node)
 	player->setPosition(Vec2(-200/SCALE_FACTOR, 200/SCALE_FACTOR));
 	jiesuanBg->addChild(player, 0);
 
-	// ½áËãÊý¾Ý
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	// êÇ³Æ
+	// ï¿½Ç³ï¿½
 
 	auto label_name = Label::createWithTTF(FileUtils::getInstance()->getValueMapFromFile("strings.xml").at("name").asString(), "fonts/FZCuYuan-M03S.ttf", 24/SCALE_FACTOR);
 	label_name->setColor(Color3B(52, 84, 130));
 	label_name->setPosition(Vec2(150/SCALE_FACTOR,300/SCALE_FACTOR));
 	jiesuanBg->addChild(label_name,1);
 
-	// µØÖ÷±êÖ¾
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
 	auto dizhu_flag = Sprite::createWithSpriteFrameName("ddz_result_base_dizhu_flag.png");
 	dizhu_flag->setPosition(Vec2(90/SCALE_FACTOR, _player1->getIsDiZhu() ? 250/SCALE_FACTOR : (_player2->getIsDiZhu() ? 200/SCALE_FACTOR : (_player3->getIsDiZhu() ? 150/SCALE_FACTOR : 0))));
 	jiesuanBg->addChild(dizhu_flag, 0);
@@ -783,7 +789,7 @@ void SceneGame::callbackJieSuan(cocos2d::Node* node)
 	label_name_player3->setPosition(Vec2(150/SCALE_FACTOR,150/SCALE_FACTOR));
 	jiesuanBg->addChild(label_name_player3,1);
 
-	// »¶ÀÖ¶¹
+	// ï¿½ï¿½ï¿½Ö¶ï¿½
 
 	auto label_huanledou = Label::createWithTTF(FileUtils::getInstance()->getValueMapFromFile("strings.xml").at("score").asString(), "fonts/FZCuYuan-M03S.ttf", 24/SCALE_FACTOR);
 	label_huanledou->setColor(Color3B(52, 84, 130));
@@ -805,7 +811,7 @@ void SceneGame::callbackJieSuan(cocos2d::Node* node)
 	label_huanledou_player3->setPosition(Vec2(350/SCALE_FACTOR,150/SCALE_FACTOR));
 	jiesuanBg->addChild(label_huanledou_player3,1);
 
-	// ·ÖÊý¼Ó¼õ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½
 	char str_score_delta_player1[255] = {0};
 	char str_score_delta_player2[255] = {0};
 	char str_score_delta_player3[255] = {0};
@@ -829,7 +835,7 @@ void SceneGame::callbackJieSuan(cocos2d::Node* node)
 	label_huanledou_d_player3->setPosition(Vec2(480/SCALE_FACTOR,150/SCALE_FACTOR));
 	jiesuanBg->addChild(label_huanledou_d_player3,1);
 
-	// ÖØ¿ª²Ëµ¥
+	// ï¿½Ø¿ï¿½ï¿½Ëµï¿½
 
 	auto itemRestart = customMenuItemWithSpriteFrameName("ddzsingle_maplvl_btn_restart.png", "ddzsingle_maplvl_btn_restart.png", CC_CALLBACK_1(SceneGame::menuRestartCallback, this));
 	itemRestart->setPosition(200/SCALE_FACTOR, -150/SCALE_FACTOR);

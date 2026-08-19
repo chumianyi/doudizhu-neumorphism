@@ -1,10 +1,11 @@
 #include "SceneMenu.h"
 #include "SceneGame.h"
-#include"SimpleAudioEngine.h"   //°üº¬ÉùÒôÒýÇæÍ·ÎÄ¼þ  
+#include "SceneRoomSelect.h"
+#include"SimpleAudioEngine.h"   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½  
 #include "AppMacros.h"
 
 USING_NS_CC;  
-using namespace CocosDenshion;//Ê¹ÓÃ¸ÃÉùÒôÒýÇæµÄÃüÃû¿Õ¼ä  
+using namespace CocosDenshion;//Ê¹ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½  
 
 Scene* SceneMenu::createScene()
 {
@@ -17,19 +18,19 @@ Scene* SceneMenu::createScene()
 
 bool SceneMenu::init()
 {
-    // ³õÊ¼»¯»ùÀà----------------------------------------
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½----------------------------------------
     if ( !Layer::init() )
     {
         return false;
     }
 
-	// ²¥·Å±³¾°ÒôÀÖ
+	// ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	SimpleAudioEngine::getInstance()->playBackgroundMusic("sound/table_background_music.mp3", true);
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    // ±³¾°----------------------------------------------
+    // ï¿½ï¿½ï¿½ï¿½----------------------------------------------
 	auto bg = Sprite::create("beijing.png");
 	//bg->setScale(1/0.8);
 	bg->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
@@ -39,7 +40,7 @@ bool SceneMenu::init()
 	logo->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 3 * 2 + origin.y));
 	this->addChild(logo, 0);
 
-	// ´´½¨²Ëµ¥---------------------------------------------
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½---------------------------------------------
 
 	auto itemBegin = customMenuItem("item_begin.png", "item_begin.png", CC_CALLBACK_1(SceneMenu::menuBeginCallback, this));
 	itemBegin->setPosition(Vec2(-200/SCALE_FACTOR,-200/SCALE_FACTOR));
@@ -56,7 +57,7 @@ bool SceneMenu::init()
 void SceneMenu::menuBeginCallback(Ref* pSender)
 {
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-	Director::getInstance()->replaceScene(SceneGame::createScene());
+	Director::getInstance()->replaceScene(SceneRoomSelect::createScene());
 }
 
 void SceneMenu::menuExitCallback(Ref* pSender)

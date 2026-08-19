@@ -17,7 +17,9 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/SceneGame.cpp \
                    ../../Classes/Player.cpp \
                    ../../Classes/Poke.cpp \
-                   ../../Classes/BottomCardZone.cpp
+                   ../../Classes/BottomCardZone.cpp \
+                   ../../Classes/HappyBeanManager.cpp \
+                   ../../Classes/SceneRoomSelect.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

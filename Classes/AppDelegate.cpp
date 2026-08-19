@@ -41,7 +41,7 @@ bool AppDelegate::applicationDidFinishLaunching()
         director->setOpenGLView(glview);
 
 		glview->setFrameSize(WINSIZE_W,WINSIZE_H);
-		glview->setDesignResolutionSize(1200,675, ResolutionPolicy::NO_BORDER);
+		glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::FIXED_HEIGHT);
     }
 
 	director->setContentScaleFactor(SCALE_FACTOR);
