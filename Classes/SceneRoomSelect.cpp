@@ -31,27 +31,27 @@ bool SceneRoomSelect::init()
     
     // 标题
     auto title = Label::createWithTTF("选择场次", "fonts/FZCuYuan-M03S.ttf", 42);
-    title->setPosition(600, 600);
+    title->setPosition(600, 620);
     title->setColor(Color3B(52, 84, 130));
     this->addChild(title, 1);
     
     // 快乐豆显示
     auto beanBg = Sprite::create("bottomCardZone.png");
     beanBg->setScale(0.5);
-    beanBg->setPosition(600, 530);
+    beanBg->setPosition(600, 570);
     this->addChild(beanBg, 1);
     
     auto beanIcon = Sprite::create("icon_dou.png");
-    beanIcon->setPosition(510, 530);
+    beanIcon->setPosition(520, 570);
     this->addChild(beanIcon, 2);
     
     _beanLabel = Label::createWithTTF("0", "fonts/FZCuYuan-M03S.ttf", 32);
-    _beanLabel->setPosition(620, 530);
+    _beanLabel->setPosition(620, 570);
     _beanLabel->setColor(Color3B(52, 84, 130));
     this->addChild(_beanLabel, 2);
     updateBeanLabel();
     
-    // 5个场次按钮 - 垂直排列
+    // 5个场次按钮 - 垂直排列，间距足够大
     const char* roomNames[] = {
         "初级场  门槛50",
         "中级场  门槛2000",
@@ -59,7 +59,7 @@ bool SceneRoomSelect::init()
         "顶级场  门槛10万",
         "包场  门槛1亿"
     };
-    float roomY[] = {450, 370, 290, 210, 130};
+    float roomY[] = {520, 430, 340, 250, 160};
     
     for (int i = 0; i < 5; i++)
     {
@@ -67,12 +67,13 @@ bool SceneRoomSelect::init()
             [this, i](Ref* sender) {
                 this->menuRoomCallback(sender, i);
             });
-        item->setScale(0.9);
+        item->setScale(0.65);
         
-        auto label = Label::createWithTTF(roomNames[i], "fonts/FZCuYuan-M03S.ttf", 24);
-        label->setPosition(item->getContentSize().width/2, item->getContentSize().height/2);
-        label->setColor(Color3B(255, 255, 255));
-        item->addChild(label);
+        // 场次名称显示在按钮上方
+        auto label = Label::createWithTTF(roomNames[i], "fonts/FZCuYuan-M03S.ttf", 22);
+        label->setPosition(600, roomY[i] + 55);
+        label->setColor(Color3B(52, 84, 130));
+        this->addChild(label, 3);
         
         auto menu = Menu::create(item, NULL);
         menu->setPosition(600, roomY[i]);
