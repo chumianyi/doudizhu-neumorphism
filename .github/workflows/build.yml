@@ -19,9 +19,10 @@ jobs:
 
     - name: Install Python 2 and Ant
       run: |
-        sudo apt-get update
-        sudo apt-get install -y python2 ant
+        sudo apt-get update -qq || true
+        sudo apt-get install -y --no-install-recommends python2 ant || sudo apt-get install -y --no-install-recommends python2-dev ant
         sudo ln -sf /usr/bin/python2 /usr/bin/python
+        python --version
 
     - name: Install Android SDK components
       run: |
