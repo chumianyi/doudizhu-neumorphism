@@ -1,0 +1,11 @@
+*.o
+*.a
+*.so
+*.apk
+*.class
+bin/
+gen/
+obj/
+libs/
+.DS_Store
+*.pyc
