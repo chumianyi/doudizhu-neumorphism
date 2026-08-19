@@ -9,14 +9,14 @@ import shutil
 from optparse import OptionParser
 
 def get_num_of_cpu():
-	''' The build process can be accelerated by running multiple concurrent job processes using the -j-option.
-	'''
-	try:
-		import multiprocessing
-		return multiprocessing.cpu_count()
-	except Exception:
-		print "Can't know cpuinfo, use default 1 cpu"
-		return 1
+    ''' The build process can be accelerated by running multiple concurrent job processes using the -j-option.
+    '''
+    try:
+        import multiprocessing
+        return multiprocessing.cpu_count()
+    except Exception:
+        print("Can't know cpuinfo, use default 1 cpu")
+        return 1
 
 def check_environment_variables_sdk():
     ''' Checking the environment ANDROID_SDK_ROOT, which will be used for building
@@ -25,7 +25,7 @@ def check_environment_variables_sdk():
     try:
         SDK_ROOT = os.environ['ANDROID_SDK_ROOT']
     except Exception:
-        print "ANDROID_SDK_ROOT not defined. Please define ANDROID_SDK_ROOT in your environment"
+        print("ANDROID_SDK_ROOT not defined. Please define ANDROID_SDK_ROOT in your environment")
         sys.exit(1)
 
     return SDK_ROOT
@@ -37,7 +37,7 @@ def check_environment_variables():
     try:
         NDK_ROOT = os.environ['NDK_ROOT']
     except Exception:
-        print "NDK_ROOT not defined. Please define NDK_ROOT in your environment"
+        print("NDK_ROOT not defined. Please define NDK_ROOT in your environment")
         sys.exit(1)
 
     return NDK_ROOT
@@ -47,12 +47,12 @@ def select_toolchain_version():
     ndk_root = check_environment_variables()
     if os.path.isdir(os.path.join(ndk_root,"toolchains/arm-linux-androideabi-4.9")):
         os.environ['NDK_TOOLCHAIN_VERSION'] = '4.9'
-        print "The Selected NDK toolchain version was 4.9 !"
+        print("The Selected NDK toolchain version was 4.9 !")
     elif os.path.isdir(os.path.join(ndk_root,"toolchains/arm-linux-androideabi-4.8")):
         os.environ['NDK_TOOLCHAIN_VERSION'] = '4.8'
-        print "The Selected NDK toolchain version was 4.8 !"
+        print("The Selected NDK toolchain version was 4.8 !")
     else:
-        print "Couldn't find the gcc toolchain."
+        print("Couldn't find the gcc toolchain.")
         exit(1)
 
 def do_build(cocos_root, ndk_root, app_android_root,ndk_build_param,sdk_root,android_platform,build_mode):
@@ -69,17 +69,17 @@ def do_build(cocos_root, ndk_root, app_android_root,ndk_build_param,sdk_root,and
     if os.system(command) != 0:
         raise Exception("Build dynamic library for project [ " + app_android_root + " ] fails!")
     elif android_platform is not None:
-    	  sdk_tool_path = os.path.join(sdk_root, "tools/android")
-    	  cocoslib_path = os.path.join(cocos_root, "cocos/platform/android/java")
-    	  command = '%s update lib-project -t %s -p %s' % (sdk_tool_path,android_platform,cocoslib_path) 
-    	  if os.system(command) != 0:
-    	  	  raise Exception("update cocos lib-project [ " + cocoslib_path + " ] fails!")  	  
-    	  command = '%s update project -t %s -p %s -s' % (sdk_tool_path,android_platform,app_android_root)
-    	  if os.system(command) != 0:
-    	  	  raise Exception("update project [ " + app_android_root + " ] fails!")    	  	  
-    	  buildfile_path = os.path.join(app_android_root, "build.xml")
-    	  command = 'ant clean %s -f %s -Dsdk.dir=%s' % (build_mode,buildfile_path,sdk_root)
-    	  os.system(command)
+          sdk_tool_path = os.path.join(sdk_root, "tools/android")
+          cocoslib_path = os.path.join(cocos_root, "cocos/platform/android/java")
+          command = '%s update lib-project -t %s -p %s' % (sdk_tool_path,android_platform,cocoslib_path) 
+          if os.system(command) != 0:
+                raise Exception("update cocos lib-project [ " + cocoslib_path + " ] fails!")        
+          command = '%s update project -t %s -p %s -s' % (sdk_tool_path,android_platform,app_android_root)
+          if os.system(command) != 0:
+                raise Exception("update project [ " + app_android_root + " ] fails!")                
+          buildfile_path = os.path.join(app_android_root, "build.xml")
+          command = 'ant clean %s -f %s -Dsdk.dir=%s' % (build_mode,buildfile_path,sdk_root)
+          os.system(command)
 
 def copy_files(src, dst):
 
@@ -119,15 +119,15 @@ def build(ndk_build_param,android_platform,build_mode):
     copy_resources(app_android_root)
     
     if android_platform is not None:
-				sdk_root = check_environment_variables_sdk()
-				if android_platform.isdigit():
-						android_platform = 'android-'+android_platform
-				else:
-						print 'please use vaild android platform'
-						exit(1)
-		
+                sdk_root = check_environment_variables_sdk()
+                if android_platform.isdigit():
+                        android_platform = 'android-'+android_platform
+                else:
+                        print('please use vaild android platform')
+                        exit(1)
+        
     if build_mode is None:
-    	  build_mode = 'debug'
+          build_mode = 'debug'
     elif build_mode != 'release':
         build_mode = 'debug'
     
@@ -144,6 +144,6 @@ if __name__ == '__main__':
     help='the build mode for java project,debug[default] or release.Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
     (opts, args) = parser.parse_args()
     
-    print "We will remove this script next version,you should use cocos console to build android project.\n"
+    print("We will remove this script next version,you should use cocos console to build android project.\n")
     
     build(opts.ndk_build_param,opts.android_platform,opts.build_mode)
