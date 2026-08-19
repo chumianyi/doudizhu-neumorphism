@@ -35,7 +35,7 @@ jobs:
         unzip -q tools.zip -d $ANDROID_SDK_ROOT
         ls $ANDROID_SDK_ROOT/tools/ant/build.xml
         # 移除高版本build-tools，只保留28.0.3（旧版ant需要dx工具）
-        rm -rf $ANDROID_SDK_ROOT/build-tools/36* $ANDROID_SDK_ROOT/build-tools/37*
+        rm -rf $ANDROID_SDK_ROOT/build-tools/29* $ANDROID_SDK_ROOT/build-tools/3*
         ls $ANDROID_SDK_ROOT/build-tools/
 
     - name: Download cocos2d-x external deps
