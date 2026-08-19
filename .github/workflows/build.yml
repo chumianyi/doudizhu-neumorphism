@@ -31,7 +31,7 @@ jobs:
     - name: Download cocos2d-x external deps
       run: |
         cd cocos2d
-        python2 download-deps.py
+        echo "n" | python2 download-deps.py
 
     - name: Setup JDK 8 for build
       uses: actions/setup-java@v4
