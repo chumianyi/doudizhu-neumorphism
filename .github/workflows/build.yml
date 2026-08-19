@@ -19,9 +19,11 @@ jobs:
 
     - name: Install Ant
       run: |
-        sudo apt-get update -qq || true
-        sudo apt-get install -y --no-install-recommends ant
+        wget -q https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.14-bin.tar.gz -O ant.tar.gz
+        tar xzf ant.tar.gz
+        export PATH=$PWD/apache-ant-1.10.14/bin:$PATH
         ant -version
+        echo "PATH=$PWD/apache-ant-1.10.14/bin:$PATH" >> $GITHUB_ENV
 
     - name: Install Android SDK components
       run: |
